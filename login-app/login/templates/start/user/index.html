@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand">Nothing here for now</a>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link">Role: {{ g.user['role'] }}</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link">Included Project: {{ g.user['project'] }}</a>
+      </li>
+    </ul>
+  </nav>
+{% endblock %}

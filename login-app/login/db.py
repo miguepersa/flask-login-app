@@ -1,5 +1,5 @@
 import sqlite3
-
+from werkzeug.security import generate_password_hash
 import click
 from flask import current_app, g
 
@@ -32,6 +32,17 @@ def init_db():
 def init_db_command():
     """Clear the existing data and create new tables."""
     init_db()
+
+    db = get_db()
+    try:
+        db.execute(
+            'INSERT INTO user (username, password, firstname, lastname, project, role, verified) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            ("admin", generate_password_hash("admin"), "admin", "admin", -1, "admin", 1)
+        )
+        db.commit()
+    except db.IntegrityError:
+        pass
+
     click.echo('Initialized the database.')
 
 def init_app(app):
