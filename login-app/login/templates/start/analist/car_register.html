@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="#">Tools:</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="client_register.html">Client Register</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link">Logged as: {{ g.user['role'] }}</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <h1>Register a new car</h1>
+    <form method="POST">
+      <div class="form-group">
+        <label for="plaque">Plaque:</label>
+        <input type="text" class="form-control" id="plaque" name="plaque" required>
+      </div>
+      <div class="form-group">
+        <label for="brand">Brand:</label>
+        <input type="text" class="form-control" id="brand" name="brand" required>
+      </div>
+      <div class="form-group">
+        <label for="model">Model:</label>
+        <input type="text" class="form-control" id="model" name="model" required>
+      </div>
+      <div class="form-group">
+        <label for="year">Year:</label>
+        <input type="year" class="form-control" id="year" name="year" required>
+      </div>
+      <div class="form-group">
+        <label for="serial_car">Car Serial:</label>
+        <input type="text" class="form-control" id="serial_car" name="serial_car" required>
+      </div>
+      <div class="form-group">
+        <label for="serial_mot">Motor Serial:</label>
+        <input type="text" class="form-control" id="serial_mot" name="serial_mot" required>
+      </div>
+      <div class="form-group">
+        <label for="color">Color:</label>
+        <input type="text" class="form-control" id="color" name="color" required>
+      </div>
+      <div class="form-group">
+        <label for="issue">Car Issue:</label>
+        <input type="text" class="form-control" id="issue" name="issue" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+
+  <div class="container">
+    <h1>All Client Cars</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">DNI</th>
+          <th scope="col">Plaque</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Model</th>
+          <th scope="col">Year</th>
+          <th scope="col">Car Serial</th>
+          <th scope="col">Motor Serial</th>
+          <th scope="col">Color</th>
+          <th scope="col">Issue</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for car in cars %}
+          <tr>
+            <th scope="row">{{ car.owner }}</th>
+            <td>{{ car.plaque }}</td>
+            <td>{{ car.brand }}</td>
+            <td>{{ car.model }}</td>
+            <td>{{ car.year }}</td>
+            <td>{{ car.serial_car }}</td>
+            <td>{{ car.serial_mot }}</td>
+            <td>{{ car.color }}</td>
+            <td>{{ car.issue }}</td>
+            <td>
+              <a href="/start/analist/car_modify.html?car_id={{ car.id }}&owner={{ car.owner }}" class="btn btn-primary btn-sm">Modify</a>
+              <form method="POST" style="display: inline;">
+                  <button class="btn btn-danger btn-sm" type="submit" name="delete" value="{{ car.id }}">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}

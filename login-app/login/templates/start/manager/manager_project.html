@@ -63,7 +63,7 @@
                 <td>{{ project.end }}</td>
                 <td>{% if project.status == 0 %}Inactive{% else %}Active{% endif %}</td>
                 <td>
-                    <a href="modify_project?id={{ project.id }}" class="btn btn-primary btn-sm">Modify</a>
+                    <a href="modify_project.html?id={{ project.id }}" class="btn btn-primary btn-sm">Modify</a>
                     {% if project.status == 0 %}
                     <form method="POST" style="display: inline;">
                         <button class="btn btn-success btn-sm" type="submit" name="activate" value="{{ project.id }}">Activate</button>
@@ -88,7 +88,7 @@
                 <td>{{ project.end }}</td>
                 <td>{% if project.status == 0 %}Inactive{% else %}Active{% endif %}</td>
                 <td>
-                    <a href="modify_project?id={{ project.id }}" class="btn btn-primary btn-sm">Modify</a>
+                    <a href="modify_project.html?id={{ project.id }}" class="btn btn-primary btn-sm">Modify</a>
                     {% if project.status == 0 %}
                     <form method="POST" style="display: inline;">
                         <button class="btn btn-success btn-sm" type="submit" name="activate" value="{{ project.id }}">Activate</button>

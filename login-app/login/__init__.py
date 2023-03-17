@@ -1,7 +1,5 @@
 import os
-
-from flask import Flask
-
+from flask import Flask, redirect
 
 def create_app(test_config=None):
     # create and configure the app
@@ -32,6 +30,9 @@ def create_app(test_config=None):
 
     from . import start
     app.register_blueprint(start.bp)
-    app.add_url_rule('/', endpoint='start')
     
+    @app.route('/')
+    def index():
+        return redirect('/auth/login')
+
     return app

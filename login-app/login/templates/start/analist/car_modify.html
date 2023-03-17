@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link">Logged as: {{ g.user['role'] }}</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+{% endblock %}
+
+
+{% block content %}
+{% for client in client %}
+{% for car in car %}
+  <div class="container">
+    <h1>Modify car</h1>
+    <form method="POST">
+      <div class="form-group">
+        <label for="plaque">Plaque:</label>
+        <input type="text" class="form-control" id="plaque" name="plaque" value="{{ car.plaque }}" required>
+      </div>
+      <div class="form-group">
+        <label for="brand">Brand:</label>
+        <input type="text" class="form-control" id="brand" name="brand" value="{{ car.brand }}" required>
+      </div>
+      <div class="form-group">
+        <label for="model">Model:</label>
+        <input type="text" class="form-control" id="model" name="model" value="{{ car.model }}" required>
+      </div>
+      <div class="form-group">
+        <label for="year">Year:</label>
+        <input type="year" class="form-control" id="year" name="year" value="{{ car.year }}" required>
+      </div>
+      <div class="form-group">
+        <label for="serial_car">Car Serial:</label>
+        <input type="text" class="form-control" id="serial_car" name="serial_car" value="{{ car.serial_car }}" required>
+      </div>
+      <div class="form-group">
+        <label for="serial_mot">Motor Serial:</label>
+        <input type="text" class="form-control" id="serial_mot" name="serial_mot" value="{{ car.serial_mot }}" required>
+      </div>
+      <div class="form-group">
+        <label for="color">Color:</label>
+        <input type="text" class="form-control" id="color" name="color" value="{{ car.color }}" required>
+      </div>
+      <div class="form-group">
+        <label for="issue">Car Issue:</label>
+        <input type="text" class="form-control" id="issue" name="issue" value="{{ car.issue }}" required>
+      </div>
+      <input type="hidden" name="suelte" value='None'>
+      <button href="/start/analist/car_register.html?dni={{ car.owner }}" type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+  </div>
+{% endfor %}
+{% endfor %}
+{% endblock %}

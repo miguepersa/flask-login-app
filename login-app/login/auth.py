@@ -60,7 +60,7 @@ def login():
             error = 'Incorrect password.'
         elif user['verified'] == 0:
             error = 'Account has not been verified by admin.'
-        elif user['project'] == -2 and ((user['role'] != 'admin') and (user['role'] != 'Gerente de Operaciones')):
+        elif user['project'] == -2 and ((user['role'] != 'admin') and (user['role'] != 'Gerente de Operaciones') and (user['role'] != 'Analista de Operaciones')):
             error = 'Account has not been assigned a project.'
 
         if error is None:
@@ -72,7 +72,9 @@ def login():
                 return redirect(url_for('start.index'))
             elif user['role'] == 'Gerente de Operaciones':
                 return redirect(url_for('start.manager_project'))
-            elif (user['role'] != 'admin') and (user['role'] != 'Gerente de Operaciones'):
+            elif user['role'] == 'Analista de Operaciones':
+                return redirect(url_for('start.client_list'))
+            elif (user['role'] != 'admin') and (user['role'] != 'Gerente de Operaciones') and (user['role'] != 'Analista de Operaciones'):
                 return redirect(url_for('start.user_view'))
 
         flash(error)
@@ -130,6 +132,21 @@ def manager_required(view):
 
         elif (g.user['role'] != 'admin') and (g.user['role'] != 'Gerente de Operaciones'):
             logger_register('User "'+g.user['username']+'" has tried to acces a page that required manager privileges, redirected to login',"Logger")
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
+def analist_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            logger_register("An unlogged user has tried to access a page that requiered login, redirected to login.",g.user['username'])
+            return redirect(url_for('auth.login'))
+
+        elif (g.user['role'] != 'admin') and (g.user['role'] != 'Analista de Operaciones'):
+            logger_register('User "'+g.user['username']+'" has tried to acces a page that required analist privileges, redirected to login',"Logger")
             return redirect(url_for('auth.login'))
 
         return view(**kwargs)
